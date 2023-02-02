@@ -1,0 +1,22 @@
+#创建数据库
+create database multiplayerChatRoom;
+
+#切换数据库
+use multiplayerChatRoom;
+
+#创建users表
+CREATE TABLE `users` (
+    `userId` int(11) NOT NULL AUTO_INCREMENT,
+    `userName` varchar(30) CHARACTER SET utf8 NOT NULL,
+    `userPassword` varchar(30) CHARACTER SET utf8 NOT NULL,
+    `userNickname` varchar(30) CHARACTER SET utf8 NOT NULL,
+    PRIMARY KEY (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+#添加两个账号
+insert into users values(0,'longersking','666666','lwl');
+insert into users values(0,'liyan','333','ly');
+select * from users;
+
+#删除数据库
+# drop database multiplayerChatRoom;
