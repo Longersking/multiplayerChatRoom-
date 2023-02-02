@@ -1,5 +1,5 @@
 from pymysql import connect
-from server.config import *
+from serverConfig import *
 
 #操作数据库的类
 class DataBase(object):

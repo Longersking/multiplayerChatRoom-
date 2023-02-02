@@ -1,0 +1,18 @@
+#数据协议相关约定
+REQUEST_LOGIN = '0001'#登录
+REQUEST_CHAT = '0002'#聊天
+REQUEST_LOGIN_RESULT = '1001'#登录结果响应
+REQUEST_CHAT_RESULT = '1002'#聊天结果响应
+DELTMITER = '|'#自定义协议数据分隔符
+
+#服务器相关配置
+SERVER_IP = '192.168.2.94'
+SERVER_PORT = 8086
+
+#数据库配置信息
+DATABASE_HOST = '127.0.0.1'#ip
+DATABASE_PORT = 3306#端口
+DATABASE_NAME = "multiplayerChatRoom"#数据库名
+DATABASE_USER = "root"#用户
+DATABASE_PASSWORD = '666666'#密码
+

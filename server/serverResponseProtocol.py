@@ -1,4 +1,4 @@
-from server.config import *
+from serverConfig import *
 
 class ResponseProtocol(object):
     """服务器响应协议的格式字符串处理"""

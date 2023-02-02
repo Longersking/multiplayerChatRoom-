@@ -1,6 +1,6 @@
 #创建服务端套接字，传递消息！
 import socket
-from server.config import *
+from serverConfig import *
 
 class ServerSocket(socket.socket):
     """初始化服务器需要的套件字,负责套接字所需要的相关参数"""

@@ -1,5 +1,5 @@
 import socket
-from server.config import *
+from server.serverConfig import *
 
 def test():
     #测试基本的服务器连接，数据发送，数据接收

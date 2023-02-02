@@ -1,8 +1,8 @@
 #数据协议相关约定
 REQUEST_LOGIN = '0001'#登录
 REQUEST_CHAT = '0002'#聊天
-REQUEST_LOGIN_RESULT = '0003'#登录结果响应
-REQUEST_CHAT_RESULT = '0001'#聊天结果响应
+REQUEST_LOGIN_RESULT = '1001'#登录结果响应
+REQUEST_CHAT_RESULT = '1002'#聊天结果响应
 DELTMITER = '|'#自定义协议数据分隔符
 
 #服务器相关配置

@@ -1,7 +1,7 @@
-from serverSocket import ServerSocket
+from serverSocket import *
 from socketWrapper import  *
-from responseProtocol import *
-from server.dataBase import DataBase
+from serverResponseProtocol import *
+from dataBase import DataBase
 import threading
 
 
