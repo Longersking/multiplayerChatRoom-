@@ -24,4 +24,4 @@ class ResponseProtocol(object):
         """
 
 
-        return DELTMITER.join([REQUEST_CHAT,nickname,messages])
+        return DELTMITER.join([REQUEST_CHAT_RESULT,nickname,messages])

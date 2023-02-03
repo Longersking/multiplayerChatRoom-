@@ -4,7 +4,8 @@ from clientSocket import ClientSocket
 from threading import Thread
 from clientConfig import *
 from tkinter.messagebox import showinfo
-
+from windowChat import WindowChat
+import sys
 
 class Client(object):
 
@@ -14,9 +15,22 @@ class Client(object):
         self.window = WindowLogin()
         self.window.onResetButtonClick(self.clearInput)
         self.window.onLoginButtonClick(self.sendLoginData)
+        self.window.onWindowClosed(self.exit)
+        #用户信息
+        self.username = None
+
+        #初始化聊天窗口
+        self.windowChat = WindowChat()
+        self.windowChat.withdraw()#隐藏窗口
+        self.windowChat.onSendButtonClick(self.sendChatData)
+        self.windowChat.onCloseWindowClient(self.exit)
 
         #创建客户端套接字
         self.conn = ClientSocket()
+
+        #程序运行标记
+        self.isRun = True
+
 
     def startup(self):
         #开始窗口主循环
@@ -45,9 +59,23 @@ class Client(object):
         # recvData = self.conn.recvData()
         # print(recvData)
 
+    def sendChatData(self):
+        """获取输入框内容，发送到服务器"""
+        #获取输入框文本
+        message = self.windowChat.getInput()
+        #清空输入框文本
+        self.windowChat.clearInput()
+        #拼接协议文本
+        requestText = ResponseProtocol.responseChat(self.username,message)
+        #发送消息给服务器
+        self.conn.sendData(requestText)
+        #把消息内容显示到聊天区
+        self.windowChat.appendMessage("我",message)
+
+
     def responseHandle(self):
         """不断接受服务器的新消息"""
-        while True:
+        while self.isRun:
             recvData = self.conn.recvData()
             print("收到服务器消息:" + recvData)
 
@@ -59,6 +87,7 @@ class Client(object):
                 #处理登录请求
                 self.responseLoginHandle(responseData)
             elif responseData["responseId"] == REQUEST_CHAT_RESULT:
+               # print("调用消息处理方法")
                 #处理聊天请求
                 self.responseChatHandle(responseData)
 
@@ -100,13 +129,37 @@ class Client(object):
         nickname = responseData["nickname"]
         username = responseData["username"]
 
-        print("%s 的昵称为：%s,已经成功登陆"%(username,nickname))
+        self.username = username
+        #print("%s 的昵称为：%s,已经成功登陆"%(username,nickname))
+        #隐藏登陆窗口
+        self.window.withdraw()
+
+        #显示聊天窗口
+        self.windowChat.setTitle(nickname)
+        self.windowChat.update()
+        self.windowChat.deiconify()
 
 
     def responseChatHandle(self,responseData):
         """聊天结果响应"""
         print("接收到聊天消息~~",responseData)
+        #print("处理聊天消息")
+        sender = responseData["nickname"]
+        # print("执行1")
+        message = responseData["message"]
+        # print("执行2")
+        self.windowChat.appendMessage(sender,message)
+        # print("执行3")
+
+    def exit(self):
+        """退出程序"""
+        self.isRun = False
+        #关闭套接字
+        self.conn.close()
+        #退出程序
+        sys.exit(0)
+
 
 if __name__ == '__main__':
-    client = Client()
-    client.startup()
+    clientFirst = Client()
+    clientFirst.startup()
